@@ -1,1 +1,34 @@
 
+name: Workflow 1 - Dependent Jobs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build - Start
+        run: echo "Building application..."
+      - name: Build - Finish
+        run: echo "Build complete."
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test - Start
+        run: echo "Running tests..."
+      - name: Test - Finish
+        run: echo "All tests passed."
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy - Start
+        run: echo "Deploying application..."
+      - name: Deploy - Finish
+        run: echo "Deployment successful."
